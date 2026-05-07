@@ -1,0 +1,229 @@
+.dashboard-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-main);
+}
+
+.dashboard-header {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 12px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 80, 170, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand-title {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: -1px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-role {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0, 80, 170, 0.2);
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 40px 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hover-row {
+  transition: background 0.2s ease;
+}
+
+.hover-row:hover td {
+  background: #f8fafc;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+
+  .dashboard-header {
+    padding: 12px 20px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dashboard-content {
+    padding: 20px 10px;
+  }
+
+  .user-info {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero-banner {
+  background: var(--primary);
+  border-radius: var(--radius);
+  padding: 32px 40px;
+  color: white;
+  margin-bottom: 32px;
+  box-shadow: 0 10px 30px -10px rgba(0, 80, 170, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-banner-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-banner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.hero-banner-header.has-subtitle {
+  margin-bottom: 12px;
+}
+
+.hero-banner-title-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hero-banner-icon {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+}
+
+.hero-banner-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.hero-banner-back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.hero-banner-back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hero-banner-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  max-width: 600px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.hero-steps {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.hero-step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-step-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.hero-step-circle.active {
+  background: var(--accent);
+  color: var(--text-main);
+}
+
+.hero-step-circle.completed {
+  background: rgba(255, 255, 255, 0.3);
+  background: #2563eb;
+  color: white;
+}
+
+.hero-step-circle.canceled {
+  background: var(--danger);
+  color: white;
+}
+
+.hero-step-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.hero-step-label.active {
+  font-weight: 700;
+}
+
+.hero-step-connector {
+  width: 20px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 4px;
+}
