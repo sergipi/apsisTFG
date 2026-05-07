@@ -3,11 +3,12 @@ html {
 }
 
 :root {
-  --primary: #0050aa;
-  --primary-dark: #003d82;
+  --primary: #1153a5;
+  --primary-dark: #0d4285;
   --accent: #fff200;
   --accent-dark: #e6da00;
-  --danger: #e21921;
+  --danger: #ed1c24;
+  --danger-dark: #c1121a;
   --success: #10b981;
   --warning: #f59e0b;
   --bg-main: #f1f5f9;
