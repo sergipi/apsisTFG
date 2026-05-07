@@ -136,8 +136,8 @@ export default function RequestForm({ user, onSuccess, onCancel }: { user: User 
         target_gps_number: gpsNumber,
         beneficiary: selectedBeneficiary || null,
         profile: selectedProfile || null,
-        department: (user?.role !== 'ADMIN' && requestType !== 'TRANSFER' && requestType !== 'OFFBOARD') ? user?.department : (selectedDept || null),
-        location: (user?.role !== 'ADMIN' && requestType !== 'TRANSFER' && requestType !== 'OFFBOARD') ? user?.location : (selectedLoc || null),
+        department: (user?.role !== 'ADMIN' && requestType === 'ONBOARD') ? user?.department : (selectedDept || null),
+        location: (user?.role !== 'ADMIN' && requestType === 'ONBOARD') ? user?.location : (selectedLoc || null),
         items: selectedProductIds.map((id) => {
           let action = 'ADD';
           if (requestType === 'OFFBOARD') action = 'REMOVE';
@@ -164,11 +164,11 @@ export default function RequestForm({ user, onSuccess, onCancel }: { user: User 
     }
   };
 
-  const effectiveLoc = (user?.role !== 'ADMIN' && requestType !== 'TRANSFER' && requestType !== 'OFFBOARD')
+  const effectiveLoc = (user?.role !== 'ADMIN' && requestType === 'ONBOARD')
     ? (user?.location?.toString() || '')
     : selectedLoc;
 
-  const effectiveDept = (user?.role !== 'ADMIN' && requestType !== 'TRANSFER' && requestType !== 'OFFBOARD')
+  const effectiveDept = (user?.role !== 'ADMIN' && requestType === 'ONBOARD')
     ? (user?.department?.toString() || '')
     : selectedDept;
 
