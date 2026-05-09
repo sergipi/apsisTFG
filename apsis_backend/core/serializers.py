@@ -50,7 +50,7 @@ class RequestItemSerializer(serializers.ModelSerializer):
         return obj.product.name if obj.product else "Unknown Product"
 
 class ApsisRequestSerializer(serializers.ModelSerializer):
-    items = RequestItemSerializer(many=True, read_only=True)
+    items = RequestItemSerializer(many=True, required=False)
     requester_name = serializers.SerializerMethodField()
     beneficiary_name = serializers.SerializerMethodField()
     technician_name = serializers.SerializerMethodField()
@@ -77,3 +77,15 @@ class ApsisRequestSerializer(serializers.ModelSerializer):
     def get_technician_name(self, obj):
         if not obj.technician: return None
         return obj.technician.get_full_name() or obj.technician.username
+
+    def create(self, validated_data):
+        items_data = validated_data.pop('items', [])
+        request = super().create(validated_data)
+        from .models import RequestItem
+        for item_data in items_data:
+            RequestItem.objects.create(request=request, **item_data)
+        return request
+
+    def update(self, instance, validated_data):
+        validated_data.pop('items', None)
+        return super().update(instance, validated_data)

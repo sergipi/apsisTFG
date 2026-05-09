@@ -11,16 +11,18 @@ def send_apsis_notification(request_id, event_type, body=None):
     try:
         r = ApsisRequest.objects.get(id=request_id)
         subjects = {
+            'CREATED': f"New Apsis Request: {r.request_type}",
             'APPROVED': f"Apsis Approved: {r.request_type}",
             'COMPLETED': f"Apsis Completed: {r.request_type}",
             'ASSIGNED': f"New Apsis Assigned: {r.request_type}"
         }
         recipients = {
+            'CREATED': list(CustomUser.objects.filter(role='ADMIN').values_list('email', flat=True)),
             'APPROVED': [r.requester.email],
             'COMPLETED': [r.requester.email],
             'ASSIGNED': [r.technician.email] if r.technician else []
         }
-        if event_type in subjects and recipients[event_type]:
+        if event_type in subjects and recipients.get(event_type):
             msg = body or f"Notification for request {r.id}: {event_type}\nTarget: {r.target_user_name}"
             send_mail(subjects[event_type], msg, 'noreply@apsis.com', recipients[event_type])
     except Exception as e:

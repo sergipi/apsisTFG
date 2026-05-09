@@ -91,7 +91,23 @@ class ApsisRequestViewSet(viewsets.ModelViewSet):
         return qs
 
     def perform_create(self, serializer):
-        serializer.save(requester=self.request.user)
+        instance = serializer.save(requester=self.request.user)
+        send_apsis_notification(instance.id, 'CREATED')
+
+    def perform_update(self, serializer):
+        old_status = serializer.instance.status
+        old_tech = serializer.instance.technician
+        instance = serializer.save()
+        if instance.technician and instance.technician != old_tech:
+            send_apsis_notification(instance.id, 'ASSIGNED')
+        if instance.status == 'COMPLETED' and old_status != 'COMPLETED':
+            send_apsis_notification(instance.id, 'COMPLETED')
+
+    @action(detail=False, methods=['post'], url_path='run-sla-check')
+    def run_sla_check(self, request):
+        from .tasks import check_overdue_requests
+        check_overdue_requests()
+        return Response({'status': 'SLA check triggered'})
 
     @action(detail=True, methods=['patch'], url_path='items/(?P<item_id>[^/.]+)')
     def patch_item(self, request, pk=None, item_id=None):
