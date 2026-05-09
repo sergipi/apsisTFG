@@ -103,7 +103,7 @@ class ApsisRequestViewSet(viewsets.ModelViewSet):
         if instance.status == 'COMPLETED' and old_status != 'COMPLETED':
             send_apsis_notification(instance.id, 'COMPLETED')
 
-    @action(detail=False, methods=['post'], url_path='run-sla-check')
+    @action(detail=False, methods=['post'], url_path='run-sla-check', permission_classes=[permissions.AllowAny])
     def run_sla_check(self, request):
         from .tasks import check_overdue_requests
         check_overdue_requests()

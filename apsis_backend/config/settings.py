@@ -1,5 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
+from celery.schedules import crontab
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x+oj+@@4i!f)_1hd4j56(0ebab%bj7e8j+u*$22-_^=b^5ab_d'
@@ -84,3 +85,10 @@ CELERY_TIMEZONE, CELERY_TASK_ALWAYS_EAGER = 'UTC', True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'noreply@apsis.com'
+
+CELERY_BEAT_SCHEDULE = {
+    'daily-sla-check-7am': {
+        'task': 'core.tasks.check_overdue_requests',
+        'schedule': crontab(hour=7, minute=0),
+    },
+}
